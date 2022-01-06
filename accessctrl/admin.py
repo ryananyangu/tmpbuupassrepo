@@ -1,10 +1,14 @@
 from django.contrib import admin
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Permission,ContentType
 from .models import (
     Role,
     User
 )
 
+@admin.register(ContentType)
+class PermissionAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_display = ('app_label', 'model',)
 
 @admin.register(Permission)
 class PermissionAdmin(admin.ModelAdmin):

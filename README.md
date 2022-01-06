@@ -9,6 +9,12 @@ Above implies the entire format will be implemented with group and no granular p
 - [X] Group contains many users and many permisions
 - [X] Each user created will have a group with their username
 - [X] Sub users will be registered on parent users group and they will be able to cascade the permisions downstream.
+- [ ] Adding permission to the role/Group
+- [ ] Remove permission from the group/role
+- [ ] Add user to group/role
+- [ ] Remove user from role/group
+- [ ] Get all permisions of a role
+- [ ] Get all users of a role
 
 ## Features Implemented in the application
 
@@ -20,7 +26,7 @@ Above implies the entire format will be implemented with group and no granular p
 - [X] Code versioning (Git hub)
 - [X] Deployment and delivery via Heroku
 - [X] Depandencies management and documentation on requirements.txt
-- [X] Logging and log management
+- [X] Logging and log management.
 
 ### Potential challenges
 

@@ -10,3 +10,7 @@ class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = (permissions.AllowAny,)
     serializer_class = RegisterSerializer
+
+    # def post(self, request, *args, **kwargs):
+    #     # FIXME: Confirm if registration is done by an authenticated user
+    #     return super().post(request, *args, **kwargs)
