@@ -33,5 +33,16 @@ class User(AbstractUser):
         managed = True
         verbose_name = 'User'
         verbose_name_plural = 'Users'
-    roles = models.ManyToManyField(Role, related_name='+')
-    user_permissions = models.ManyToManyField(Permission, related_name='+')
+    roles = models.ManyToManyField(Role, related_name='+',blank=False)
+    user_permissions = models.ManyToManyField(Permission, related_name='+',blank=True)
+    # def save(self, *args, **kwargs):
+    #     super(User, self).save(*args, **kwargs)
+    #     role = Role.objects.create(
+    #         name = self.username,
+    #         created_by = self,
+    #         modified_by = self,
+    #         admin = self,
+    #     )
+    #     role.save()
+    #     self.roles.add(role)
+    #     super(User, self).save(*args, **kwargs)

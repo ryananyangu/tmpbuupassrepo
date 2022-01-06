@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, Role
+from django.db import transaction
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
@@ -23,7 +24,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             'password': {'required': True},
         }
 
-
+    @transaction.atomic
     def create(self, validated_data):
         user = User.objects.create(
             username=validated_data['username'],
@@ -31,8 +32,17 @@ class RegisterSerializer(serializers.ModelSerializer):
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name']
         )
-        # FIXME: Create role with user username
+
         user.set_password(validated_data['password'])
+        user.save()
+        role =  Role.objects.create(
+            admin = user,
+            name = validated_data['username'],
+            modified_by = user,
+            created_by = user,
+        )
+        role.save()
+        user.roles.add(role)
         user.save()
 
         return user
