@@ -27,6 +27,14 @@ Above implies the entire format will be implemented with group and no granular p
 - How to handle deletion of parent sub. so that the other subs remain but permision related to the parent sub are removed.
 NOTE: Group defines the role of the user in the system
 
+### Research material
+
+- <https://simpleisbetterthancomplex.com/tutorial/2018/01/18/how-to-implement-multiple-user-types-with-django.html>
+- <https://hashedin.com/blog/configure-role-based-access-control-in-django/>
+- <https://bootcamp.uxdesign.cc/designing-roles-and-permissions-ux-case-study-b1940f5a9aa>
+- <https://hackernoon.com/configure-role-based-access-control-in-django-74fa94a54aff>
+- <https://www.django-rest-framework.org/api-guide/permissions/>
+
 ### Application setup
 
 Get the application source code from github
