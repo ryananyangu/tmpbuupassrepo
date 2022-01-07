@@ -140,3 +140,5 @@ coverage report
 ##### Invited user request accept request invited role
 
 ##### Add remove permisions from group
+
+<!-- Logged in user roles => Permisions in the groups  -->
