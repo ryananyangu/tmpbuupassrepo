@@ -9,11 +9,11 @@ Above implies the entire format will be implemented with group and no granular p
 - [X] Group contains many users and many permisions
 - [X] Each user created will have a group with their username
 - [X] Sub users will be registered on parent users group and they will be able to cascade the permisions downstream.
-- [ ] Adding permission to the role/Group
-- [ ] Remove permission from the group/role
-- [ ] Add user to group/role
-- [ ] Remove user from role/group
-- [ ] Get all permisions of a role
+- [X] Adding permission to the role/Group
+- [X] Remove permission from the group/role
+- [X] Add user to group/role
+- [X] Remove user from role/group
+- [X] Get all permisions of a role
 - [ ] Get all users of a role
 
 ## Features Implemented in the application
@@ -21,7 +21,7 @@ Above implies the entire format will be implemented with group and no granular p
 - [X] Application/api security (JWT token generation)
 - [X] Data normalizations (Database functionlity)
 - [X] Auditable data (Timestamps and user profile on any data manupilation done)
-- [X] Application testability (Unit tests to achieve coverage of < 90%)
+- [ ] Application testability (Unit tests to achieve coverage of < 90%)
 - [X] Application documentation (Feature and code documentation on readme file)
 - [X] Code versioning (Git hub)
 - [X] Deployment and delivery via Heroku
@@ -131,14 +131,83 @@ coverage report
 
 #### APIs Implementation and Examples
 
-##### Signup
+### Login API
 
-##### Sign in
+[login link](https://ashiruma-buupass.herokuapp.com/api-token-auth/)
 
-##### Invite user (Sub registration) to personal role
+Sample request via curl
 
-##### Invited user request accept request invited role
+```bash
+curl -X POST \
+  https://ashiruma-buupass.herokuapp.com/api-token-auth/ \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+        "username": "rashiruma",
+        "password": "XXXXXXXXX"
+      }'
+```
 
-##### Add remove permisions from group
+Sample response
+
+```json
+{
+    "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
+```
+
+### Verify Token API
+
+[token verification link](https://ashiruma-buupass.herokuapp.com/api-token-verify/)
+
+Sample request
+
+```bash
+curl -X POST \
+  https://ashiruma-buupass.herokuapp.com/api-token-refresh/ \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+        "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      }'
+```
+
+Sample response
+
+```json
+{
+    "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
+```
+
+### Refresh token API
+
+[token refresh link](https://ashiruma-buupass.herokuapp.com/api-token-refresh/)
+
+Sample request
+
+```bash
+curl -X POST \
+  https://ashiruma-buupass.herokuapp.com/api-token-refresh/ \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+        "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      }'
+```
+
+Sample response with new token
+
+```json
+{
+    "token": "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+}
+```
+
+### Invite user (Sub registration) to personal role
+
+### Invited user request accept request invited role
+
+### Add remove permisions from group
 
 <!-- Logged in user roles => Permisions in the groups  -->

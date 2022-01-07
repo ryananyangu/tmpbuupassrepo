@@ -12,6 +12,7 @@ from rest_framework import status
 from django.db import transaction
 
 from django.contrib.auth.models import Permission
+from rest_framework.decorators import api_view
 
 
 class RegisterView(generics.CreateAPIView):
@@ -118,3 +119,8 @@ class UserRolesView(APIView):
             "message" : "Role "+role.name + "removed from user "+request.user.username+" profile."
         }
         return Response(data=resp, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+def get_permissions_per_role(request, role_id):
+    resp =  Role.objects.get(id=role_id).values('permissions__name', 'permissions__id')
+    return Response(data=resp,status=status.HTTP_200_OK)

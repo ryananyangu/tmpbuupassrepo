@@ -20,7 +20,8 @@ from accessctrl.views import (
     RegisterView, 
     UserRolesView, 
     UserPermissionsView,
-    RolePermissionsView
+    RolePermissionsView,
+    get_permissions_per_role
 )
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import obtain_jwt_token
@@ -29,7 +30,7 @@ from rest_framework_jwt.views import verify_jwt_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
+    # path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', obtain_jwt_token),
     path('api-token-verify/', verify_jwt_token),
     path('api-token-refresh/', refresh_jwt_token),
@@ -42,5 +43,7 @@ urlpatterns = [
     path('role/permissions/', RolePermissionsView.as_view(),
          name='get_post_role_permissions'),
     path('role/permissions/<int:role_id>/<int:permission_id>/', RolePermissionsView.as_view(),
+         name='delete_role_permissions'),
+    path('role/permissions/<int:role_id>/', get_permissions_per_role,
          name='delete_role_permissions'),
 ]
