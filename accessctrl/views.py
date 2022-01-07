@@ -37,7 +37,8 @@ class UserPermissionsView(APIView):
     renderer_classes = [JSONRenderer,]
 
     def get(self, request):
-        pass
+        resp = request.user.roles.all().values('id', 'name','admin_id__username','permissions__name','permissions__id',)
+        return Response(data=resp, status=status.HTTP_204_NO_CONTENT)
 
 
 # Add roles to a user, Get all roles of a user, remove a user from a role.
@@ -52,12 +53,14 @@ class UserRolesView(APIView):
         logged_in_user = request.data.user
         role = Role.objects.get(id=request.data.role_id)
         if logged_in_user.id != role.admin:
-            return Response(data={"message" : "User not authorized to perform this action"}, status=status.HTTP_401_UNAUTHORIZED)
+            resp = {"message" : "User "+logged_in_user.username+" not authorized to perform this action"}
+            return Response(data=resp, status=status.HTTP_401_UNAUTHORIZED)
 
         user = User.objects.get(id=request.data.user_id)
         user.roles.add(role)
         user.save()
-        return Response(data=role.objects.all().values('id', 'name','admin_id__username','created_at','created_by__username','modified_at','modified_by__username'), status=status.HTTP_201_OK)
+        resp = {"message":"user "+user.username+" added to role "+role.name+" successfully"}
+        return Response(data=resp, status=status.HTTP_201_OK)
 
     def get(self, request):
         resp = request.user.roles.all().values('id', 'name','admin_id__username','created_at','created_by__username','modified_at','modified_by__username')
@@ -68,5 +71,3 @@ class UserRolesView(APIView):
         role = Role.objects.get(id=role_id)
         request.user.role.remove(role)
         return Response(data=role, status=status.HTTP_204_NO_CONTENT)
-
-# <QuerySet [{'id': 1, 'name': 'rashiruma', 'group_ptr_id': 1, 'admin_id': 1, 'created_at': datetime.datetime(2022, 1, 6, 7, 8, 33, 815437, tzinfo=<UTC>), 'modified_at': datetime.datetime(2022, 1, 6, 7, 8, 33, 832000, tzinfo=<UTC>), 'created_by_id': 1, 'modified_by_id': 1}]>

@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
-from accessctrl.views import RegisterView, UserRolesView
+from accessctrl.views import RegisterView, UserRolesView,UserPermissionsView
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import refresh_jwt_token
@@ -29,8 +29,9 @@ urlpatterns = [
     path('api-token-verify/', verify_jwt_token),
     path('api-token-refresh/', refresh_jwt_token),
     path('register/', RegisterView.as_view(), name='auth_register'),
-    path('user/roles/', UserRolesView.as_view(), name='get_user_roles'),
+    path('user/roles/', UserRolesView.as_view(), name='get_post_user_roles'),
     path('user/roles/<int:role_id>/', UserRolesView.as_view(), name='delete_user_roles'),
+    path('user/permissions/', UserPermissionsView.as_view(), name='get_all_user_permissions'),
 
 
 ]
