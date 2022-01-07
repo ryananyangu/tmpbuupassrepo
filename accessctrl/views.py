@@ -12,7 +12,7 @@ from rest_framework import status
 from django.db import transaction
 
 from django.contrib.auth.models import Permission
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes
 
 
 class RegisterView(generics.CreateAPIView):
@@ -92,19 +92,20 @@ class UserRolesView(APIView):
     @transaction.atomic
     def post(self, request):
         # userid, roleid, check if poster is the admin of the role
-        logged_in_user = request.data.user
-        role = Role.objects.get(id=request.data.role_id)
-        if logged_in_user.id != role.admin:
+        logged_in_user = request.user
+        role = Role.objects.get(id=request.data["role_id"])
+        print(request.data)
+        if logged_in_user.id != role.admin.id:
             resp = {"message": "User "+logged_in_user.username +
-                    " not authorized to perform this action"}
+                    " not authorized to perform this action on role "+role.name}
             return Response(data=resp, status=status.HTTP_401_UNAUTHORIZED)
 
-        user = User.objects.get(id=request.data.user_id)
+        user = User.objects.get(id=request.data["user_id"])
         user.roles.add(role)
         user.save()
         resp = {"message": "user "+user.username +
                 " added to role "+role.name+" successfully"}
-        return Response(data=resp, status=status.HTTP_201_OK)
+        return Response(data=resp, status=status.HTTP_200_OK)
 
     def get(self, request):
         resp = request.user.roles.all().values('id', 'name', 'admin_id__username',
@@ -114,12 +115,13 @@ class UserRolesView(APIView):
     @transaction.atomic
     def delete(self, request, role_id):
         role = Role.objects.get(id=role_id)
-        request.user.role.remove(role)
+        request.user.roles.remove(role)
         resp = {
             "message" : "Role "+role.name + "removed from user "+request.user.username+" profile."
         }
         return Response(data=resp, status=status.HTTP_204_NO_CONTENT)
 
+@authentication_classes(permissions.IsAuthenticated,)
 @api_view(['GET'])
 def get_permissions_per_role(request, role_id):
     resp =  Role.objects.get(id=role_id).values('permissions__name', 'permissions__id')

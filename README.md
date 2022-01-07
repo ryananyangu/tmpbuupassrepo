@@ -204,6 +204,78 @@ Sample response with new token
 }
 ```
 
+### GET Roles of logged in user
+
+[get roles of logged in user](https://ashiruma-buupass.herokuapp.com/user/roles/)
+
+```bash
+curl --location --request GET 'https://ashiruma-buupass.herokuapp.com/user/roles/' \
+--header 'Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+```
+
+```json
+[
+    {
+        "id": 1,
+        "name": "rashiruma",
+        "admin_id__username": "rashiruma",
+        "created_at": "2022-01-06T07:08:33.815437Z",
+        "created_by__username": "rashiruma",
+        "modified_at": "2022-01-06T07:08:33.832000Z",
+        "modified_by__username": "rashiruma"
+    },
+    {
+        "id": 3,
+        "name": "ztech",
+        "admin_id__username": "ztech",
+        "created_at": "2022-01-06T10:32:20.586653Z",
+        "created_by__username": "ztech",
+        "modified_at": "2022-01-06T10:32:20.587621Z",
+        "modified_by__username": "ztech"
+    }
+]
+```
+
+### Add user to role
+
+[Add user to a role](https://ashiruma-buupass.herokuapp.com/user/roles/)
+
+```bash
+curl --location --request POST 'https://ashiruma-buupass.herokuapp.com/user/roles/' \
+--header 'Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXX' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "role_id":1,
+    "user_id":3
+}'
+```
+
+Sample response
+
+```json
+{
+    "message": "user ranyangu added to role rashiruma successfully"
+}
+```
+
+### Delete user from role
+
+[Remove user from role](https://ashiruma-buupass.herokuapp.com/user/roles/1/)
+
+```bash
+curl --location --request DELETE 'https://ashiruma-buupass.herokuapp.com/user/roles/1/' \
+--header 'Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' \
+--data-raw ''
+```
+
+Sample response
+
+```json
+{
+    "message": "Role rashiruma removed from user rashiruma profile."
+}
+```
+
 ### Invite user (Sub registration) to personal role
 
 ### Invited user request accept request invited role
