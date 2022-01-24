@@ -20,7 +20,7 @@ static/
 # Byte-compiled / optimized / DLL files
 *.py[cod]
 *$py.class
-# migrations/
+migrations/
 # C extensions
 *.so
 
