@@ -29,7 +29,7 @@ APPEND_SLASH = False
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG",True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ashiruma-buupass.herokuapp.com']
 
 
 AUTH_USER_MODEL = 'accessctrl.User'
