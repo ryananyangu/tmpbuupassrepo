@@ -4,6 +4,7 @@ release: python manage.py makemigrations contenttypes
 release: python manage.py makemigrations sessions
 release: python manage.py makemigrations accessctrl
 release: python manage.py migrate
+release: python manage.py collectstatic
 
 
 
